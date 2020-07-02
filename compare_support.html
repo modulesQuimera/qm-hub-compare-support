@@ -1,0 +1,81 @@
+<script type="text/javascript">
+  RED.nodes.registerType('compare_support',{
+      category: 'Module Processing',
+      color: '#a6bbcf',
+      defaults: {
+          compare_select: {value:"equalTo", required:true},
+          equalTo: {value: ''},
+          maxValue: {value: null, validate:RED.validators.number()},
+          minValue: {value: null, validate:RED.validators.number()}
+      },
+      inputs:1,
+      outputs:1,
+      // icon: "font-awesome/fa-pause",
+      icon: "parser-xml.png",
+      label: function() {
+          return "Compare Support";
+      },
+      oneditprepare: function() { 
+        var node = this;
+        var scope = node.scope || [];
+
+        $("#node-input-compare_select").on("change", function(e) {
+              var compare = $(this).val();
+              if (compare === "equalTo") {
+                  $(".node-input-equal-to").show();
+                  $(".node-input-max-value").hide();
+                  $(".node-input-min-value").hide();
+              }
+              if (compare === "interval") {
+                $(".node-input-equal-to").hide();
+                $(".node-input-max-value").show();
+                $(".node-input-min-value").show();
+              }
+
+              if (compare === "maxValue") {
+                $(".node-input-equal-to").hide();
+                $(".node-input-max-value").show();
+                $(".node-input-min-value").hide();
+              }
+              if (compare === "minValue") {
+                $(".node-input-equal-to").hide();
+                $(".node-input-max-value").hide();
+                $(".node-input-min-value").show();
+              }
+              // node._resize();
+        });
+
+      }
+  });
+</script>
+
+<script type="text/html" data-template-name="compare_support">
+  <div class="form-row">
+    <label style="width: auto" for="node-input-compare_select"><i class="icon-tag"></i>Comparison Type:</label>
+    <select id="node-input-compare_select" style="margin-left: 8px !important;" >
+        <option value="equalTo">Equal to</option>
+        <option value="interval">Interval</option>
+        <option value="maxValue">Maximum value (<)</option>
+        <option value="minValue">Minimum value (>)</option>  
+    </select>
+  </div>
+  <div class="form-row" style="display: flex;">
+    <div class="node-input-equal-to">
+      <label for="node-input-equalTo" style="width: max-content; !important"><i class="icon-tag"></i>Equal To: </label>
+      <input type="text" id="node-input-equalTo" style="margin: 0 8px !important; width:60px !important ">
+    </div>
+    <div class="node-input-min-value" style="display: none;">
+      <label for="node-input-minValue" style="width: max-content !important;"><i class="icon-tag"></i>Minimum Value: </label>
+      <input type="text" id="node-input-minValue" style="margin: 0 8px !important; width:60px !important ">
+    </div>
+    <div class="node-input-max-value" style="display: none;">
+      <label for="node-input-maxValue" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+      <input type="text" id="node-input-maxValue" style="margin: 0 8px !important; width:60px !important ">
+    </div>
+    
+  </div>
+</script>
+
+<script type="text/html" data-help-name="compare_support">
+  <p>COMPARE SUPPORT</p>
+</script>

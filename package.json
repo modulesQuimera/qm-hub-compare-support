@@ -1,0 +1,25 @@
+{
+  "name": "qm-hub-compare-support",
+  "version": "1.0.0",
+  "description": "Node Component - Node-RED -> Compare Support",
+  "main": "compare_support.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/modulesQuimera/qm-hub-compare-support.git"
+  },
+  "keywords": ["quimera", "HUB", "JIG"],
+  "author": "HUB-LSE",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/modulesQuimera/qm-hub-compare-support/issues"
+  },
+  "homepage": "https://github.com/modulesQuimera/qm-hub-compare-support#readme",
+  "node-red": {
+    "nodes": {
+      "compare_support": "compare_support.js"
+    }
+  }
+}
