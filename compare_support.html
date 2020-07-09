@@ -1,17 +1,16 @@
 <script type="text/javascript">
   RED.nodes.registerType('compare_support',{
-      category: 'Module Processing',
+      category: 'Processing Module',
       color: '#a6bbcf',
       defaults: {
           compare_select: {value:"equalTo", required:true},
           equalTo: {value: ''},
-          maxValue: {value: null, validate:RED.validators.number()},
-          minValue: {value: null, validate:RED.validators.number()}
+          maxValue: {value: null},
+          minValue: {value: null}
       },
       inputs:1,
       outputs:1,
-      // icon: "font-awesome/fa-pause",
-      icon: "parser-xml.png",
+      icon: "CMP_Suport.svg",
       label: function() {
           return "Compare Support";
       },
@@ -49,33 +48,109 @@
   });
 </script>
 
+
+
+<style>
+
+  /* select#node-input-mapeamento {
+      width: 100%;
+      display: none;
+  }
+
+  a#node-input-lookup-mapeamento {
+  position: absolute;
+  right: -30px !important;
+  top: 0px;
+  } */
+
+  label{
+      width: 50% !important;
+      margin-bottom: 2px !important;
+  }
+
+  .columm{
+      display: flex !important;
+      flex-direction: column !important;
+  }
+
+  hr {
+  width: 40% !important;
+  float: left !important;
+  }
+
+  .hr-div-compare{
+      display: flex !important;
+      justify-content: space-between !important;
+      margin-top: 250px !important;
+  }
+
+  .optional{
+      height: max-content !important;
+      margin-top: 10px !important;
+  }
+
+  .descript{
+      text-align: center;
+  }
+
+</style>
+
 <script type="text/html" data-template-name="compare_support">
-  <div class="form-row">
+
+  <div class="form-row columm">
+    <strong class="descript">
+      Compare Support Component used to perform the other comparisons <br> extracted by get_command_message.
+ </strong>
+ </div>
+
+
+  <div class="form-row columm">
     <label style="width: auto" for="node-input-compare_select"><i class="icon-tag"></i>Comparison Type:</label>
-    <select id="node-input-compare_select" style="margin-left: 8px !important;" >
+    <select id="node-input-compare_select"  >
         <option value="equalTo">Equal to</option>
         <option value="interval">Interval</option>
         <option value="maxValue">Maximum value (<)</option>
         <option value="minValue">Minimum value (>)</option>  
     </select>
   </div>
-  <div class="form-row" style="display: flex;">
+  <div class="form-row columm" style="display: flex;">
     <div class="node-input-equal-to">
-      <label for="node-input-equalTo" style="width: max-content; !important"><i class="icon-tag"></i>Equal To: </label>
-      <input type="text" id="node-input-equalTo" style="margin: 0 8px !important; width:60px !important ">
+      <div class="columm">
+        <label for="node-input-equalTo" style="width: max-content; !important"><i class="icon-tag"></i>Equal To: </label>
+        <input type="text" id="node-input-equalTo" style=" width:70px !important ">
+      </div>
     </div>
-    <div class="node-input-min-value" style="display: none;">
-      <label for="node-input-minValue" style="width: max-content !important;"><i class="icon-tag"></i>Minimum Value: </label>
-      <input type="text" id="node-input-minValue" style="margin: 0 8px !important; width:60px !important ">
-    </div>
-    <div class="node-input-max-value" style="display: none;">
-      <label for="node-input-maxValue" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
-      <input type="text" id="node-input-maxValue" style="margin: 0 8px !important; width:60px !important ">
+
+    <div class=box>
+      <div class="node-input-min-value" style="display: none; width: min-content; float: left; margin-right: 40px;"">
+        <div class="columm">
+          <label for="node-input-minValue" style="width: max-content !important;"><i class="icon-tag"></i>Minimum Value: </label>
+          <input type="number" id="node-input-minValue" style=" width:70px !important ">
+        </div>
+      </div>
+
+      <div class="node-input-max-value" style="display: none;">
+        <div class="columm">
+          <label for="node-input-maxValue" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+          <input type="number" id="node-input-maxValue" style=" width:70px !important ">
+        </div>
+      </div>
     </div>
     
+  </div>
+
+  <div class="hr-div-compare">
+    <hr>
+    <span class="optional">Optional</span>
+    <hr>
+  </div>
+
+  <div class="form-row columm">
+      <label style="width: 50% !important;" for="node-input-name" ><i class="fa fa-tag"></i> Component Nickname</label>
+      <input type="text" id="node-input-name" placeholder="Name">
   </div>
 </script>
 
 <script type="text/html" data-help-name="compare_support">
-  <p>COMPARE SUPPORT</p>
+  <p>COMPARE SUPPORT Component Used to perform the other comparisons extracted by get_command_message.</p>
 </script>

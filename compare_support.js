@@ -57,8 +57,8 @@ module.exports = function(RED) {
           }
           globalContext.set("exportFile", file);
           node.status({fill:"green", shape:"dot", text:"done"}); // seta o status pra waiting
-          msg.payload = command
-          
+          // msg.payload = command
+          console.log(command)
           node.send(msg);
       });
   }
