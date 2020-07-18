@@ -1,5 +1,5 @@
 {
-  "name": "qm-hub-compare-support",
+  "name": "qm-compare-support",
   "version": "1.0.5",
   "description": "Node Component - Node-RED -> Compare Support",
   "main": "compare_support.js",
