@@ -1,156 +1,139 @@
 <script type="text/javascript">
-  RED.nodes.registerType('compare_support',{
-      category: 'Processing Module',
-      color: '#a6bbcf',
-      defaults: {
-          compare_select: {value:"equalTo", required:true},
-          equalTo: {value: ''},
-          maxValue: {value: null},
-          minValue: {value: null}
-      },
-      inputs:1,
-      outputs:1,
-      icon: "CMP_Suport.svg",
-      label: function() {
-          return "Compare Support";
-      },
-      oneditprepare: function() { 
-        var node = this;
-        var scope = node.scope || [];
+	RED.nodes.registerType('compare_support',{
+		category: 'Processing Module',
+		color: '#ff0028',
+		defaults: {
+			compare_select: {value:"equalTo", required:true},
+			equalTo: {value: ''},
+			maxValue: {value: null},
+			minValue: {value: null},
+			name:{value:""}
+		},
+		inputs:1,
+		outputs:1,
+		icon: "PCS_Modular.svg",
+		label: function() {
+			return this.name? "Compare Support - " + this.name: "Compare Support";
+		},
+		oneditprepare: function() { 
+			var node = this;
+			var scope = node.scope || [];
 
-        $("#node-input-compare_select").on("change", function(e) {
-              var compare = $(this).val();
-              if (compare === "equalTo") {
-                  $(".node-input-equal-to").show();
-                  $(".node-input-max-value").hide();
-                  $(".node-input-min-value").hide();
-              }
-              if (compare === "interval") {
-                $(".node-input-equal-to").hide();
-                $(".node-input-max-value").show();
-                $(".node-input-min-value").show();
-              }
+			$("#node-input-compare_select").on("change", function(e) {
+				var compare = $(this).val();
+				if (compare === "equalTo") {
+					$(".node-input-equal-to").show();
+					$(".node-input-max-value").hide();
+					$(".node-input-min-value").hide();
+				}
+				if (compare === "interval") {
+					$(".node-input-equal-to").hide();
+					$(".node-input-max-value").show();
+					$(".node-input-min-value").show();
+				}
 
-              if (compare === "maxValue") {
-                $(".node-input-equal-to").hide();
-                $(".node-input-max-value").show();
-                $(".node-input-min-value").hide();
-              }
-              if (compare === "minValue") {
-                $(".node-input-equal-to").hide();
-                $(".node-input-max-value").hide();
-                $(".node-input-min-value").show();
-              }
-              // node._resize();
-        });
+				if (compare === "maxValue") {
+					$(".node-input-equal-to").hide();
+					$(".node-input-max-value").show();
+					$(".node-input-min-value").hide();
+				}
+				if (compare === "minValue") {
+					$(".node-input-equal-to").hide();
+					$(".node-input-max-value").hide();
+					$(".node-input-min-value").show();
+				}
+				// node._resize();
+			});
 
-      }
-  });
+		}
+	});	
 </script>
 
 
 
 <style>
+	label{
+		width: 50% !important;
+		margin-bottom: 2px !important;
+	}
 
-  /* select#node-input-mapeamento {
-      width: 100%;
-      display: none;
-  }
+	.columm{
+		display: flex !important;
+		flex-direction: column !important;
+	}
 
-  a#node-input-lookup-mapeamento {
-  position: absolute;
-  right: -30px !important;
-  top: 0px;
-  } */
+	hr {
+	width: 40% !important;
+	float: left !important;
+	}
 
-  label{
-      width: 50% !important;
-      margin-bottom: 2px !important;
-  }
+	.hr-div-compare{
+		display: flex !important;
+		justify-content: space-between !important;
+		margin-top: 250px !important;
+	}
 
-  .columm{
-      display: flex !important;
-      flex-direction: column !important;
-  }
+	.optional{
+		height: max-content !important;
+		margin-top: 10px !important;
+	}
 
-  hr {
-  width: 40% !important;
-  float: left !important;
-  }
-
-  .hr-div-compare{
-      display: flex !important;
-      justify-content: space-between !important;
-      margin-top: 250px !important;
-  }
-
-  .optional{
-      height: max-content !important;
-      margin-top: 10px !important;
-  }
-
-  .descript{
-      text-align: center;
-  }
-
+	.descript{
+		text-align: center;
+	}
 </style>
 
 <script type="text/html" data-template-name="compare_support">
+	<div class="form-row columm">
+		<strong class="descript">
+			Makes the rest of the comparisons adjacent to the “get command message”.
+	</strong>
+	</div>
+	<div class="form-row columm">
+		<label style="width: auto" for="node-input-compare_select"><i class="fa fa-list"></i> Comparison Type:</label>
+		<select id="node-input-compare_select"  >
+			<option value="equalTo">Equal to</option>
+			<option value="interval">Interval</option>
+			<option value="maxValue">Maximum value (<)</option>
+			<option value="minValue">Minimum value (>)</option>  
+		</select>
+	</div>
 
-  <div class="form-row columm">
-    <strong class="descript">
-      Compare Support Component used to perform the other comparisons <br> extracted by get_command_message.
- </strong>
- </div>
-
-
-  <div class="form-row columm">
-    <label style="width: auto" for="node-input-compare_select"><i class="icon-tag"></i>Comparison Type:</label>
-    <select id="node-input-compare_select"  >
-        <option value="equalTo">Equal to</option>
-        <option value="interval">Interval</option>
-        <option value="maxValue">Maximum value (<)</option>
-        <option value="minValue">Minimum value (>)</option>  
-    </select>
-  </div>
-  <div class="form-row columm" style="display: flex;">
-    <div class="node-input-equal-to">
-      <div class="columm">
-        <label for="node-input-equalTo" style="width: max-content; !important"><i class="icon-tag"></i>Equal To: </label>
-        <input type="text" id="node-input-equalTo" style=" width:70px !important ">
-      </div>
-    </div>
-
-    <div class=box>
-      <div class="node-input-min-value" style="display: none; width: min-content; float: left; margin-right: 40px;"">
-        <div class="columm">
-          <label for="node-input-minValue" style="width: max-content !important;"><i class="icon-tag"></i>Minimum Value: </label>
-          <input type="number" id="node-input-minValue" style=" width:70px !important ">
-        </div>
-      </div>
-
-      <div class="node-input-max-value" style="display: none;">
-        <div class="columm">
-          <label for="node-input-maxValue" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
-          <input type="number" id="node-input-maxValue" style=" width:70px !important ">
-        </div>
-      </div>
-    </div>
-    
-  </div>
-
-  <div class="hr-div-compare">
-    <hr>
-    <span class="optional">Optional</span>
-    <hr>
-  </div>
-
-  <div class="form-row columm">
-      <label style="width: 50% !important;" for="node-input-name" ><i class="fa fa-tag"></i> Component Nickname</label>
-      <input type="text" id="node-input-name" placeholder="Name">
-  </div>
+	<div class="form-row columm" style="display: flex;">
+		<div class="node-input-equal-to">
+			<div class="columm">
+				<label for="node-input-equalTo" style="width: max-content; !important"><i class="fa fa-exchange"></i> Equal To: </label>
+				<input type="text" id="node-input-equalTo" style=" width:70px !important ">
+			</div>
+		</div>
+		
+		<div class=box>
+			<div class="node-input-min-value" style="display: none; width: min-content; float: left; margin-right: 40px;">
+				<div class="columm">
+					<label for="node-input-minValue" style="width: max-content !important;"><i class="fa fa-minus-circle"></i> Minimum Value: </label>
+					<input type="number" id="node-input-minValue" style=" width:70px !important ">
+				</div>
+			</div>
+			<div class="node-input-max-value" style="display: none;">
+				<div class="columm">
+					<label for="node-input-maxValue" style="width: max-content !important"><i class="fa fa-plus-circle"></i>Maximum Value: </label>
+					<input type="number" id="node-input-maxValue" style=" width:70px !important ">
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="hr-div-compare">
+		<hr>
+			<span class="optional">Optional</span>
+		<hr>
+	</div>
+	<div class="form-row columm">
+		<label style="width: 50% !important;" for="node-input-name" ><i class="fa fa-tag"></i> Component Nickname</label>
+		<input type="text" id="node-input-name" placeholder="Name">
+	</div>
 </script>
 
 <script type="text/html" data-help-name="compare_support">
-  <p>COMPARE SUPPORT Component Used to perform the other comparisons extracted by get_command_message.</p>
+  	<p>Makes the rest of the comparisons adjacent to the “get command message”.</p>
 </script>
