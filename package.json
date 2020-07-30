@@ -1,6 +1,6 @@
 {
   "name": "qm-compare-support",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Node Component - Node-RED -> Compare Support",
   "main": "compare_support.js",
   "scripts": {
